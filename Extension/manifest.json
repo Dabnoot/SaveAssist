@@ -7,7 +7,6 @@
 	"permissions": ["contextMenus",
 					"menus",
 					"activeTab",
-					"downloads",
 					"nativeMessaging"],
 	"applications": {
 		"gecko": {
