@@ -1,0 +1,21 @@
+{
+	"manifest_version": 2,
+	"name": "SaveAssist",
+	"version": "1.2.0",
+	"description": "Quick picture-saving tool",
+	"author": "Will Chapman",
+	"permissions": ["contextMenus",
+					"menus",
+					"activeTab",
+					"downloads",
+					"nativeMessaging"],
+	"applications": {
+		"gecko": {
+			"id": "5eeb9b8f-bb2d-4c44-b953-80e94f7c2d12"
+			//ID is randomly generated.
+		}
+	},
+	"background": {
+		"scripts": ["background-script.js"]
+	}
+}

@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SOFTWARE\Mozilla\NativeMessagingHosts\SaveAssist]
+@="\"C:\\Program Files (x86)\\Mozilla Firefox\\extensions\\SaveAssist\""
+[HKEY_LOCAL_MACHINE\SOFTWARE\Mozilla\ManagedStorage\SaveAssist]
+@="\"C:\\Program Files (x86)\\Mozilla Firefox\\extensions\\SaveAssist\""
+[HKEY_LOCAL_MACHINE\SOFTWARE\Mozilla\PKCS11Modules\SaveAssist]
+@="\"C:\\Program Files (x86)\\Mozilla Firefox\\extensions\\SaveAssist\""

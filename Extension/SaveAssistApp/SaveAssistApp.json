@@ -1,0 +1,7 @@
+{
+  "name": "SaveAssist",
+  "description": "Assistant for saving image files",
+  "path": "SaveAssist.py",
+  "type": "stdio",
+  "allowed_extensions": [ "5eeb9b8f-bb2d-4c44-b953-80e94f7c2d12" ]
+}
