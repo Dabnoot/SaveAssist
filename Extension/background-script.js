@@ -1,5 +1,3 @@
-Components.utils.import("resource://gre/modules/osfile.jsm")
-
 (function() {
 	/**
 	* Check and set a global guard variable.
@@ -32,14 +30,9 @@ Components.utils.import("resource://gre/modules/osfile.jsm")
 			case "SaveAssistSave":
 				console.log("You clicked 'Save'.", iImageCount);
 				console.log(info.srcUrl);
-				//browser.downloads.showDefaultFolder();
-				//var downloading = browser.downloads.download({url: info.srcUrl, saveAs: true})
-				browser.downloads.download({url: info.srcUrl})
-				iImageCount = iImageCount + 1;
 			break;
 			case "SaveAssistSaveAs":
 				console.log("You clicked 'SaveAs'.");
-				browser.download.showDefaultFolder();
 			break;
 			
 		}
