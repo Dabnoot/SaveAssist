@@ -1,3 +1,3 @@
 @echo off
 
-call python C:\path\to\ping_pong.py
+call python "C:\Program Files (x86)\Mozilla Firefox\extensions\SaveAssist\SaveAssistApp.py"

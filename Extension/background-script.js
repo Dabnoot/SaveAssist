@@ -1,4 +1,8 @@
+
+
 (function() {
+	//connect to the "SaveAssist" app.
+	var port = browser.runtime.connectNative("SaveAssist");
 	/**
 	* Check and set a global guard variable.
 	* If this content script is injected into the same page again,
@@ -33,6 +37,8 @@
 			break;
 			case "SaveAssistSaveAs":
 				console.log("You clicked 'SaveAs'.");
+				console.log("Sending:  ping");
+				port.postMessage("ping");
 			break;
 			
 		}

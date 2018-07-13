@@ -1,7 +1,7 @@
 {
   "name": "SaveAssist",
   "description": "Assistant for saving image files",
-  "path": "SaveAssist.py",
+  "path": "C:\\Program Files (x86)\\Mozilla Firefox\\extensions\\SaveAssist\\SaveAssistApp_Win.bat",
   "type": "stdio",
-  "allowed_extensions": [ "5eeb9b8f-bb2d-4c44-b953-80e94f7c2d12" ]
+  "allowed_extensions": [ "WC970_SA@gmail.com" ]
 }
