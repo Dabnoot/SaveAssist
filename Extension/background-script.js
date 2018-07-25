@@ -13,8 +13,6 @@
 	}
 	window.hasRun = true;
 	
-	var iImageCount = 0;
-	var sLastFolder = "";
 	var sLastSrcURL = "";
 	
 	browser.contextMenus.create({
@@ -32,13 +30,16 @@
 	browser.contextMenus.onClicked.addListener(function(info, tab) {
 		switch (info.menuItemId) {
 			case "SaveAssistSave":
-				console.log("You clicked 'Save'.", iImageCount);
-				console.log(info.srcUrl);
+				console.log("You clicked 'Save'.");
+				sendString = "Save<" + info.srcUrl
+				console.log("Sending: " + sendString);
+				port.postMessage(sendString);
 			break;
 			case "SaveAssistSaveAs":
 				console.log("You clicked 'SaveAs'.");
-				console.log("Sending:  ping");
-				port.postMessage("ping");
+				sendString = "SaveAs<" + info.srcUrl
+				console.log("Sending: " + sendString);
+				port.postMessage(sendString);
 			break;
 			
 		}
