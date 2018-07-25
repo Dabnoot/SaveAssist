@@ -7,6 +7,7 @@ import ctypes  # An included library with Python install. Used for msgbox.
 from tkinter import filedialog
 from tkinter import *
 import urllib.request #Use to download and save a file.
+import os #For listing files in a directory
 
 gsCurrentFilePath = ""
 
@@ -46,11 +47,28 @@ def sendMessage(encodedMessage):
 #sFileType = sLocation[iDotPosition + 1:len(sLocation)]
 #ctypes.windll.user32.MessageBoxW(0,"FileType: " + sFileType, "SaveAssist", 1)
 
+#iFileNumber = 1
+#listOfEntries = os.scandir("C:\Chapman")
+#for entry in listOfEntries:
+#	# print all entries that are files
+#	if entry.is_file():
+#		sFName = entry.name
+#		iDotPosition = sFName.rfind('.')
+#		sFName = sFName[0:iDotPosition]
+#		if sFName.isnumeric():
+#			if int(sFName) > iFileNumber:
+#				iFileNumber = int(sFName)
+#sFName = '{0:04d}'.format(iFileNumber)
+#print(sFName)
+
+bDebug = True
+
 while True:
 	receivedMessage = getMessage()
 	if receivedMessage != "":
 		#Open a messagebox with the version number:
-		ctypes.windll.user32.MessageBoxW(0, "Revision: 20", "SaveAssist", 1)
+		if bDebug:
+			ctypes.windll.user32.MessageBoxW(0, "Revision: 21", "SaveAssist", 1)
 		
 		#Split the message into Save/SaveAs and the URL:
 		sArgs = receivedMessage.split("<")
@@ -58,6 +76,8 @@ while True:
 		#ctypes.windll.user32.MessageBoxW(0, "Received message: " + receivedMessage, "Your title", 1)
 		 # If there is no current path, ask the user for a path.
 		if gsCurrentFilePath == "" or sArgs[0] == "SaveAs":
+			#Declare an instance of the Tk system
+			#  used to display the folder selector dialog.
 			root = Tk()
 			
 			#Minimize the Tk window:
@@ -68,19 +88,38 @@ while True:
 			#Remove 'always on top' attribute:
 			root.attributes("-topmost", False)
 			gsCurrentFilePath = root.filename
-#		
+		
+		#Reset the file number:
+		iFileNumber = 1
+		
 		#Save the file if a path exists:
 		if gsCurrentFilePath != "":
-			iFileNumber = 1
+			#Get the file number for use in the file name:
+			listOfEntries = os.scandir(gsCurrentFilePath)
+			for entry in listOfEntries:
+				# print all entries that are files
+				if entry.is_file():
+					sFName = entry.name
+					iDotPosition = sFName.rfind('.')
+					sFName = sFName[0:iDotPosition]
+					if sFName.isnumeric():
+						if int(sFName) >= iFileNumber:
+							iFileNumber = int(sFName) + 1
+			sFName = '{0:05d}'.format(iFileNumber)
+			
 			#Get the file type:
 			sLocation = sArgs[1]
 			iDotPosition = sLocation.rfind('.')
 			sFileType = sLocation[iDotPosition + 1:len(sLocation)]
+			
 			#Form the file location and file name:
-			sFileNamePath = gsCurrentFilePath + "/" + str(iFileNumber) + "." + sFileType
-			ctypes.windll.user32.MessageBoxW(0,"File name and save location: " + sFileNamePath, "SaveAssist", 1)
+			sFileNamePath = gsCurrentFilePath + "/" + sFName + "." + sFileType
+			if bDebug:
+				ctypes.windll.user32.MessageBoxW(0,"File name and save location: " + sFileNamePath, "SaveAssist", 1)
 			urllib.request.urlretrieve(sArgs[1], sFileNamePath)
-			ctypes.windll.user32.MessageBoxW(0,"File save attempt executed. " + sFileNamePath, "SaveAssist", 1)
+			if bDebug:
+				ctypes.windll.user32.MessageBoxW(0,"File save attempt executed. " + sFileNamePath, "SaveAssist", 1)
+			
 #		
 #		
 
