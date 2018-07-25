@@ -6,8 +6,9 @@ import struct
 import ctypes  # An included library with Python install. Used for msgbox.
 from tkinter import filedialog
 from tkinter import *
+import urllib.request #Use to download and save a file.
 
-currentFilePath = ""
+gsCurrentFilePath = ""
 
 # Read a message from stdin and decode it.
 def getMessage():
@@ -39,20 +40,24 @@ def sendMessage(encodedMessage):
 #root.filename =  filedialog.askdirectory(parent=root,initialdir="/",title='Please select a directory')
 #currentFilePath = root.filename
 
-
+#sLocation = "https://sgcdn.startech.com/005329/media/products/main/RK2620WALHM.main.jpg"
+#iDotPosition = sLocation.rfind('.')
+#iLength = len(sLocation) - iDotPosition
+#sFileType = sLocation[iDotPosition + 1:len(sLocation)]
+#ctypes.windll.user32.MessageBoxW(0,"FileType: " + sFileType, "SaveAssist", 1)
 
 while True:
 	receivedMessage = getMessage()
 	if receivedMessage != "":
 		#Open a messagebox with the version number:
-		ctypes.windll.user32.MessageBoxW(0, "Revision: 15", "SaveAssist", 1)
+		ctypes.windll.user32.MessageBoxW(0, "Revision: 20", "SaveAssist", 1)
 		
 		#Split the message into Save/SaveAs and the URL:
 		sArgs = receivedMessage.split("<")
 		#Print a message box showing the data received:
 		#ctypes.windll.user32.MessageBoxW(0, "Received message: " + receivedMessage, "Your title", 1)
 		 # If there is no current path, ask the user for a path.
-		if currentFilePath == "" or sArgs[0] == "SaveAs":
+		if gsCurrentFilePath == "" or sArgs[0] == "SaveAs":
 			root = Tk()
 			
 			#Minimize the Tk window:
@@ -62,9 +67,20 @@ while True:
 			root.filename =  filedialog.askdirectory(parent=root,initialdir="/",title='Please select a directory')
 			#Remove 'always on top' attribute:
 			root.attributes("-topmost", False)
-			currentFilePath = root.filename
+			gsCurrentFilePath = root.filename
 #		
-#		#Save the file if a path exists:
-#		#if currentFilePath != ""
-#		#
+		#Save the file if a path exists:
+		if gsCurrentFilePath != "":
+			iFileNumber = 1
+			#Get the file type:
+			sLocation = sArgs[1]
+			iDotPosition = sLocation.rfind('.')
+			sFileType = sLocation[iDotPosition + 1:len(sLocation)]
+			#Form the file location and file name:
+			sFileNamePath = gsCurrentFilePath + "/" + str(iFileNumber) + "." + sFileType
+			ctypes.windll.user32.MessageBoxW(0,"File name and save location: " + sFileNamePath, "SaveAssist", 1)
+			urllib.request.urlretrieve(sArgs[1], sFileNamePath)
+			ctypes.windll.user32.MessageBoxW(0,"File save attempt executed. " + sFileNamePath, "SaveAssist", 1)
+#		
+#		
 
